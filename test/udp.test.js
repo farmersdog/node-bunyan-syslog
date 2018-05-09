@@ -5,13 +5,9 @@ var test = require('tap').test;
 
 var bsyslog = require('../lib');
 
-/// --- Globals
-
 var I = 0;
 var LOG;
 var STREAM;
-
-/// --- Tests
 
 test('create a logger', function (t) {
   STREAM = bsyslog.createBunyanStream({
@@ -24,11 +20,11 @@ test('create a logger', function (t) {
 
   LOG = bunyan.createLogger({
     name: 'udptest',
-    streams: [ {
+    streams: [{
       type: 'raw',
       level: 'trace',
       stream: STREAM
-    } ]
+    }]
   });
   t.ok(LOG);
   t.end();

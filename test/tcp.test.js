@@ -1,5 +1,6 @@
 // Copyright 2013 Mark Cavage, Inc.  All rights reserved.
 
+var net = require('net');
 var bunyan = require('bunyan');
 var test = require('tap').test;
 
@@ -8,11 +9,27 @@ var bsyslog = require('../lib');
 var I = 0;
 var LOG;
 var STREAM;
+var HOST = process.env.LOG_HOST;
+var PORT = parseInt(process.env.TCP_LOG_PORT, 10) || 10514;
+var SERVER;
+
+test('setup', t => {
+  if (!HOST) {
+    SERVER = net.createServer(c => {
+      c.on('data', data => (
+        SERVER._messages = SERVER._messages.concat(data.toString().split('\n')))
+      );
+    });
+    SERVER._messages = [];
+    SERVER.listen(PORT);
+  }
+  t.end();
+});
 
 test('create a logger', function (t) {
   STREAM = bsyslog.createBunyanStream({
-    host: process.env.LOG_HOST,
-    port: parseInt(process.env.TCP_LOG_PORT || 10514, 10),
+    host: HOST,
+    port: PORT,
     facility: bsyslog.facility.local0,
     type: 'tcp'
   });
@@ -25,8 +42,7 @@ test('create a logger', function (t) {
     streams: [{
       type: 'raw',
       level: 'trace',
-      stream: STREAM,
-      tls: false
+      stream: STREAM
     }]
   });
   t.ok(LOG);
@@ -64,5 +80,15 @@ test('write a fatal record', function (t) {
 
 test('teardown', function (t) {
   STREAM.close();
-  t.end();
+  SERVER.close(server => {
+    // TODO better way to parse syslog messages
+    var i = Math.max(...SERVER._messages
+      .map(m => m.substr(m.indexOf('{'), m.length))
+      .filter(Boolean)
+      .map(m => JSON.parse(m))
+      .map(m => m.i)
+    );
+    t.equals(i, --I);
+    t.end();
+  });
 });
