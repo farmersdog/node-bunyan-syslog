@@ -1,5 +1,7 @@
 // Copyright 2013 Mark Cavage, Inc.  All rights reserved.
 
+'use strict';
+
 var net = require('net');
 var bunyan = require('bunyan');
 var test = require('tap').test;
