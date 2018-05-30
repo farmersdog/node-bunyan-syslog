@@ -1,5 +1,5 @@
 {
-  "name": "bunyan-syslog",
+  "name": "@farmersdog/bunyan-syslog",
   "description": "Syslog Stream for Bunyan",
   "version": "1.0.0",
   "author": "Mark Cavage",
@@ -7,7 +7,7 @@
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mcavage/node-bunyan-syslog.git"
+    "url": "git://github.com/farmersdog/node-bunyan-syslog.git"
   },
   "dependencies": {
     "assert-plus": "^1.0.0"
