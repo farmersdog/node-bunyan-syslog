@@ -22,6 +22,10 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "keywords": [
+    "bunyan",
+    "syslog"
+  ],
   "files": [
     "lib/**",
     "README.md"
