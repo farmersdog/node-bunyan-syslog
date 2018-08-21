@@ -1,9 +1,2 @@
-/node_modules
-/tmp
-build
-docs/*.json
-docs/*.html
-cscope.in.out
-cscope.po.out
-cscope.out
+node_modules/**
 npm-debug.log

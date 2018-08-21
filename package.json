@@ -1,26 +1,33 @@
 {
-  "name": "bunyan-syslog",
+  "name": "@farmersdog/bunyan-syslog",
   "description": "Syslog Stream for Bunyan",
-  "version": "0.3.1",
+  "version": "1.0.1",
   "author": "Mark Cavage",
   "license": "MIT",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mcavage/node-bunyan-syslog.git"
+    "url": "git://github.com/farmersdog/node-bunyan-syslog.git"
   },
   "dependencies": {
-    "assert-plus": "0.1.5",
-    "nan": "^2.3.5"
+    "assert-plus": "^1.0.0"
   },
   "devDependencies": {
-    "bunyan": "1.5.x",
-    "tap": "0.6.0"
+    "bunyan": "^1.8.12",
+    "tap": "^12.0.1"
   },
   "scripts": {
-    "test": "tap test"
+    "test": "tap --reporter=spec test"
   },
   "engines": {
-    "node": ">=0.10.0"
-  }
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "bunyan",
+    "syslog"
+  ],
+  "files": [
+    "lib/**",
+    "README.md"
+  ]
 }
